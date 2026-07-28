@@ -1,37 +1,43 @@
 schema_version: 3
 
 project:
-  name: "{{PROJECT_NAME}}"
-  kind: "{{PROJECT_KIND}}"
-  version: "{{CURRENT_VERSION}}"
+  name: "KidiPlay"
+  kind: "application Android ludique et créative pour enfants"
+  version: "0.0.0-exploration"
 
 components:
   main:
     root: "."
     languages:
-      primary: "{{PRIMARY_LANGUAGE}}"
+      primary: "Kotlin"
       secondary: []
     toolchain:
-      compiler_or_interpreter: "{{COMPILER_OR_INTERPRETER}}"
-      runtimes: []
-      dependency_managers: []
-      build_tools: []
-      frameworks: []
+      compiler_or_interpreter: "Kotlin compiler 2.3.21 via the Gradle plugin"
+      runtimes:
+        - "Android 6.0 (API 23) or newer"
+      dependency_managers:
+        - "Gradle 8.14.5"
+      build_tools:
+        - "Gradle Wrapper 8.14.5"
+        - "Android Gradle Plugin 8.13.2"
+      frameworks:
+        - "Jetpack Compose (BOM 2026.06.00)"
+        - "AndroidX Activity Compose 1.13.0"
     targets:
-      - "{{TARGET_PLATFORM}}"
+      - "Android phone"
+      - "Android tablet"
+      - "Android foldable"
     commands:
       install:
         status: unresolved
         argv: []
         reason: "La commande doit être confirmée depuis le projet réel."
       test:
-        status: unresolved
-        argv: []
-        reason: "La stratégie de test n'est pas encore confirmée."
+        status: defined
+        argv: ["./gradlew", "testDebugUnitTest"]
       build:
-        status: unresolved
-        argv: []
-        reason: "La commande de build n'est pas encore confirmée."
+        status: defined
+        argv: ["./gradlew", "assembleDebug"]
     artifacts: []
 
 # Les portées sont indépendantes. Une cible future peut être ajoutée sous
@@ -59,4 +65,4 @@ secrets: {}
 
 evidence:
   declared_by: "human"
-  last_verified: "{{YYYY-MM-DD}}"
+  last_verified: "2026-07-28"

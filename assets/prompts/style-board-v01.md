@@ -1,5 +1,10 @@
 # Prompt — KidiPlay style board v0.1
 
+> Référence historique : cette planche explorait encore un animal entre l’ours
+> et le renard. La décision actuelle retient Kiwi, défini dans
+> `MASCOT_KIWI.md`. Ne pas réutiliser littéralement la description de mascotte
+> ci-dessous pour une nouvelle génération.
+
 ## Objectif
 
 Créer la première planche de direction artistique servant de référence à toutes les futures générations d’assets.

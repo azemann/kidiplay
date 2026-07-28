@@ -4,10 +4,13 @@ template_version: "1.7.0"
 adoption:
   origin: new
   current_level: bootstrap
-  initialized_at: null
+  initialized_at: "2026-07-28"
 
 profiles:
-  active: []
+  active:
+    - software
+    - android
+    - game
 
 # Ajouter uniquement les préoccupations réellement rencontrées.
 # Statuts possibles : active, deferred, not-applicable.
@@ -38,4 +41,13 @@ documents:
     status: active
   use-cases:
     path: docs/007_Brief_Bootstrap.md
+    status: active
+  visual-charter:
+    path: docs/012_Charte_Graphique.md
+    status: active
+  assets:
+    path: assets/README.md
+    status: active
+  asset-pipeline:
+    path: assets/README.md
     status: active

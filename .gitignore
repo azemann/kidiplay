@@ -7,6 +7,8 @@
 node_modules/
 dist/
 build/
+.gradle/
+local.properties
 coverage/
 target/
 __pycache__/
