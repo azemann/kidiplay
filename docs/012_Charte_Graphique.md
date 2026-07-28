@@ -76,22 +76,34 @@ Toutes les icônes doivent partager :
 - la même perspective frontale ou légèrement trois-quarts ;
 - une palette limitée ;
 - une silhouette reconnaissable sans texte ;
-- un fond transparent pour l’intégration.
+- un fond transparent pour l’intégration ;
+- un export raster PNG avec canal alpha, sans dépendance à un SVG.
 
 ## 6. Mascotte
 
-La mascotte KidiPlay doit pouvoir accueillir, encourager, expliquer et féliciter.
+Kiwi est la mascotte officielle de KidiPlay. C’est un petit oiseau turquoise,
+rond et rassurant, avec un visage crème en forme de cœur, de grands yeux bruns,
+des joues rose pâle, un bec et des pattes orange, et une salopette jaune portant
+une étoile orange.
 
-Première piste : un petit animal imaginaire entre l’ours et le renard, doux, rond, curieux, avec une salopette ou un petit foulard aux couleurs de la marque.
+Les invariants de Kiwi sont conservés entre toutes les poses : proportions du
+visage et du corps, trois plumes arrondies sur la tête, palette, salopette,
+étoile centrale et expression rassurante. Un accessoire n’apparaît que lorsque
+la pose le nécessite.
 
 Expressions minimales à produire :
 
-1. neutre / accueil ;
-2. joie ;
-3. encouragement ;
-4. réflexion ;
-5. petite erreur sans tristesse ;
-6. célébration.
+1. repos / accueil ;
+2. joie / célébration ;
+3. guide / explication ;
+4. dessin ;
+5. encouragement après une difficulté ;
+6. petite erreur sans tristesse.
+
+Les concepts historiques restent dans `assets/reference/mascot/`. Les candidats
+destinés à l’application vivent dans `assets/mascot/kiwi/` et ne deviennent
+stables qu’après validation à leur taille réelle et chargement par le rendu
+Skia.
 
 ## 7. Animation
 
