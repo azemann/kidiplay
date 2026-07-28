@@ -1,0 +1,76 @@
+:root {
+  color-scheme: dark;
+
+  /* Primitifs de gamme — à adapter par décision de marque. */
+  --primitive-night-950: #080d16;
+  --primitive-night-900: #0d1522;
+  --primitive-slate-850: #152131;
+  --primitive-slate-750: #223247;
+  --primitive-white-50: #f4f7fb;
+  --primitive-slate-300: #aab7c7;
+  --primitive-cyan-400: #42c7e8;
+  --primitive-green-400: #55c68a;
+  --primitive-orange-400: #eda45a;
+  --primitive-red-400: #eb6a72;
+
+  /* Tokens sémantiques — les composants utilisent ceux-ci. */
+  --color-bg: var(--primitive-night-950);
+  --color-bg-elevated: var(--primitive-night-900);
+  --color-surface: var(--primitive-slate-850);
+  --color-surface-strong: var(--primitive-slate-750);
+  --color-text: var(--primitive-white-50);
+  --color-text-muted: var(--primitive-slate-300);
+  --color-accent: var(--primitive-cyan-400);
+  --color-success: var(--primitive-green-400);
+  --color-warning: var(--primitive-orange-400);
+  --color-danger: var(--primitive-red-400);
+  --color-border: rgb(244 247 251 / 12%);
+  --color-focus: #8be3f6;
+
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-body: 1rem;
+  --font-size-title: clamp(1.75rem, 1.2rem + 2vw, 3.25rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  --shadow-panel: 0 18px 50px rgb(0 0 0 / 28%);
+  --shadow-focus: 0 0 0 3px rgb(66 199 232 / 30%);
+
+  --control-min-size: 3rem;
+  --content-max-width: 75rem;
+
+  --motion-fast: 160ms;
+  --motion-standard: 200ms;
+  --motion-slow: 220ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+

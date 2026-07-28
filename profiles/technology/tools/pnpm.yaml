@@ -1,0 +1,11 @@
+id: pnpm
+kind: dependency-manager
+name: pnpm
+capabilities: [dependency-management, lock, script-runner, workspace-management, publish]
+manifest_files: [package.json]
+lock_files: [pnpm-lock.yaml]
+commands:
+  install_frozen: { argv: [pnpm, install, --frozen-lockfile] }
+  run: { argv: [pnpm, run] }
+source: https://pnpm.io/
+

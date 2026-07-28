@@ -1,0 +1,10 @@
+id: typescript
+kind: language
+name: TypeScript
+extensions: [.ts, .tsx, .mts, .cts]
+compatible_runtimes: [node, browser, deno, bun]
+evidence:
+  strong: [tsconfig.json]
+  supporting: [package.json]
+source: https://www.typescriptlang.org/docs/
+

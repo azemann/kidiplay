@@ -1,0 +1,21 @@
+id: github-actions
+kind: pipeline-orchestrator
+name: GitHub Actions
+capabilities: [events, jobs, dag-needs, matrix, environments, approvals, artifacts, caches, oidc, secrets]
+workflow_location: .github/workflows
+secret_reference_model: repository-or-environment-name
+permissions_model: explicit-job-or-workflow-scope
+translation:
+  operation: job-or-step
+  needs: jobs.<job>.needs
+  condition: jobs.<job>.if
+  environment: jobs.<job>.environment
+  development_scope: pull-request-or-main-workflow
+  release_scope: version-tag-or-manual-workflow
+  distribution_scope: release-or-manual-workflow
+  artifact_handoff: uploaded-artifact-or-release-asset-by-digest
+limitations:
+  - Provider expressions and reusable workflows are not portable as-is.
+  - Environment protections are configured partly outside the repository.
+  - A checkout and rebuild in distribution violates the v3 artifact boundary.
+source: https://docs.github.com/actions

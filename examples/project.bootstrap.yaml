@@ -1,0 +1,60 @@
+schema_version: 3
+
+project:
+  name: example-new-project
+  kind: application
+  version: 0.1.0
+
+components:
+  main:
+    root: .
+    languages: { primary: typescript, secondary: [] }
+    toolchain:
+      compiler_or_interpreter: typescript
+      runtimes: [node]
+      dependency_managers: [pnpm]
+      build_tools: [vite]
+      frameworks: []
+    targets: [web]
+    commands:
+      install:
+        status: unresolved
+        argv: []
+        reason: "Le gestionnaire est choisi, la commande exacte reste à confirmer."
+      test:
+        status: unresolved
+        argv: []
+        reason: "La première stratégie de test sera décidée au niveau development."
+      build:
+        status: unresolved
+        argv: []
+        reason: "Aucun build final n'est encore qualifié."
+    artifacts: []
+
+delivery:
+  scopes:
+    development:
+      status: active
+      execution: manual
+      pipelines: []
+    release:
+      status: deferred
+      reason: "Aucun artefact de release n'est encore nécessaire."
+    distribution:
+      status: deferred
+      reason: "La cible web est connue, le canal sera choisi après la première tranche."
+      intent:
+        targets:
+          - { kind: hosting, platform: web, channel: unresolved }
+    operation:
+      status: deferred
+      reason: "Aucun système n'est encore en service."
+
+artifacts: {}
+pipelines: {}
+environments: {}
+secrets: {}
+
+evidence:
+  declared_by: human
+  last_verified: "2026-07-24"

@@ -1,0 +1,14 @@
+id: cargo
+kind: toolchain-orchestrator
+name: Cargo
+capabilities: [dependency-management, lock, build, run, test, format, lint, package, publish, workspace-management]
+manifest_files: [Cargo.toml]
+lock_files: [Cargo.lock]
+commands:
+  fetch: { argv: [cargo, fetch] }
+  build: { argv: [cargo, build] }
+  test: { argv: [cargo, test] }
+  lint: { argv: [cargo, clippy, --all-targets, --, -D, warnings] }
+  format_check: { argv: [cargo, fmt, --all, --, --check] }
+source: https://doc.rust-lang.org/cargo/
+

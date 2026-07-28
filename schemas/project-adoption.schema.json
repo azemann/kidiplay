@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/project-template/project-adoption.schema.json",
+  "title": "Project template adoption manifest",
+  "type": "object",
+  "required": ["schema_version", "template_version", "adoption", "profiles", "documents"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "template_version": { "type": "string", "minLength": 1 },
+    "adoption": { "$ref": "#/$defs/adoption" },
+    "profiles": { "$ref": "#/$defs/profiles" },
+    "concerns": {
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "user-interface",
+          "persistent-data",
+          "sensitive-data",
+          "network-access",
+          "authentication",
+          "multi-user",
+          "background-service",
+          "assets",
+          "automated-delivery"
+        ]
+      },
+      "additionalProperties": { "$ref": "#/$defs/applicability" }
+    },
+    "documents": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/id" },
+      "additionalProperties": { "$ref": "#/$defs/document" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "level": {
+      "enum": ["bootstrap", "discovery", "development", "release", "distribution", "operation"]
+    },
+    "adoption": {
+      "type": "object",
+      "required": ["origin", "current_level", "initialized_at"],
+      "additionalProperties": false,
+      "properties": {
+        "origin": { "enum": ["new", "existing"] },
+        "current_level": { "$ref": "#/$defs/level" },
+        "initialized_at": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "format": "date" }
+          ]
+        }
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "required": ["active"],
+      "additionalProperties": false,
+      "properties": {
+        "active": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "applicability": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "enum": ["active", "deferred", "not-applicable"] },
+        "until": { "$ref": "#/$defs/level" },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "deferred" } },
+            "required": ["status"]
+          },
+          "then": { "required": ["until", "reason"] }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "not-applicable" } },
+            "required": ["status"]
+          },
+          "then": { "required": ["reason"] }
+        }
+      ]
+    },
+    "document": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$)).+"
+        },
+        "status": { "enum": ["active", "deferred", "not-applicable"] },
+        "until": { "$ref": "#/$defs/level" },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "active" } },
+            "required": ["status"]
+          },
+          "then": { "required": ["path"] }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "deferred" } },
+            "required": ["status"]
+          },
+          "then": { "required": ["until", "reason"] }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "not-applicable" } },
+            "required": ["status"]
+          },
+          "then": { "required": ["reason"] }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,173 @@
+schema_version: 3
+
+project:
+  name: example-web-service
+  kind: web-application
+  version: 1.6.0
+
+components:
+  web:
+    root: .
+    languages: { primary: typescript, secondary: [] }
+    toolchain:
+      compiler_or_interpreter: typescript
+      runtimes: [node, browser]
+      dependency_managers: [pnpm]
+      build_tools: [vite]
+      frameworks: [react]
+    targets: [web]
+    commands:
+      install: { status: defined, argv: [pnpm, install, --frozen-lockfile] }
+      test: { status: defined, argv: [pnpm, test] }
+      build: { status: defined, argv: [pnpm, build] }
+    artifacts: [web-preview, web-release]
+
+delivery:
+  scopes:
+    development:
+      status: active
+      execution: automated
+      pipelines: [development-ci]
+    release:
+      status: active
+      execution: automated
+      pipelines: [release]
+    distribution:
+      status: active
+      execution: automated
+      pipelines: [distribution]
+      intent:
+        targets:
+          - { kind: hosting, platform: web, channel: production }
+    operation:
+      status: deferred
+      reason: "L'exploitation permanente sera activée avec le monitoring."
+
+artifacts:
+  web-preview:
+    role: verification-output
+    type: web-bundle
+    path: dist-preview
+    produced_by: build-preview
+    retention_days: 7
+  web-release:
+    role: release-artifact
+    type: web-bundle
+    path: dist/example-web-service-1.6.0.tar.gz
+    produced_by: package-web
+    retention_days: 90
+    contract:
+      immutable: true
+      version_source: project.version
+      revision_source: vcs.commit
+      digest_algorithm: sha256
+      provenance: required
+      sbom: optional
+      signature: optional
+      qualified_by: [release-tests, checksum-web, attest-web]
+    handoff:
+      kind: release-asset
+      reference: example-web-service-1.6.0
+      verify_digest: true
+
+pipelines:
+  development-ci:
+    orchestrator: github-actions
+    triggers: [pull-request, main-push]
+    operations:
+      test-dev:
+        phase: verify
+        uses: test
+        component: web
+      build-preview:
+        phase: produce
+        uses: build
+        component: web
+        needs: [test-dev]
+        outputs: [web-preview]
+
+  release:
+    orchestrator: github-actions
+    triggers: [version-tag, manual]
+    operations:
+      release-tests:
+        phase: verify
+        uses: test
+        component: web
+      build-release:
+        phase: produce
+        uses: build
+        component: web
+        needs: [release-tests]
+      package-web:
+        phase: produce
+        uses: package
+        component: web
+        needs: [build-release]
+        outputs: [web-release]
+      checksum-web:
+        phase: produce
+        uses: checksum
+        needs: [package-web]
+        inputs: [web-release]
+      attest-web:
+        phase: produce
+        uses: attest
+        needs: [checksum-web]
+        inputs: [web-release]
+      create-web-release:
+        phase: deliver
+        uses: create-release
+        needs: [attest-web]
+        inputs: [web-release]
+
+  distribution:
+    orchestrator: github-actions
+    triggers: [release-created, manual]
+    operations:
+      verify-web-release:
+        phase: verify
+        uses: verify-artifact
+        inputs: [web-release]
+      publish-web:
+        phase: deliver
+        uses: publish
+        needs: [verify-web-release]
+        inputs: [web-release]
+        secrets: [registry-token]
+      deploy-production:
+        phase: deliver
+        uses: deploy
+        needs: [publish-web]
+        inputs: [web-release]
+        environment: production
+        failure:
+          mode: rollback
+          rollback_operation: rollback-production
+      rollback-production:
+        phase: operate
+        uses: rollback
+        environment: production
+        condition: { manual: true }
+        failure: { mode: stop }
+
+environments:
+  production:
+    kind: production
+    approvals: { required: true, minimum: 1 }
+    promotion:
+      require_operations: [release-tests, checksum-web, attest-web]
+      require_signed_artifacts: false
+    deployment:
+      strategy: rolling
+      rollback_operation: rollback-production
+
+secrets:
+  registry-token:
+    provider: github-actions
+    reference: REGISTRY_TOKEN
+    required_by: [publish-web]
+
+evidence:
+  declared_by: human
+  last_verified: "2026-07-24"

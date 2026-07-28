@@ -1,0 +1,8 @@
+id: node
+kind: runtime
+name: Node.js
+languages: [javascript, typescript]
+version_command: { argv: [node, --version] }
+version_files: [.nvmrc, .node-version]
+source: https://nodejs.org/docs/latest/api/
+

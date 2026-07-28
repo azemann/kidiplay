@@ -1,0 +1,10 @@
+id: python
+kind: language
+name: Python
+extensions: [.py, .pyi]
+compatible_runtimes: [cpython]
+evidence:
+  strong: [pyproject.toml]
+  supporting: [requirements.txt, uv.lock, poetry.lock]
+source: https://docs.python.org/3/
+

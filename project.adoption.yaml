@@ -1,0 +1,41 @@
+schema_version: 1
+template_version: "1.7.0"
+
+adoption:
+  origin: new
+  current_level: bootstrap
+  initialized_at: null
+
+profiles:
+  active: []
+
+# Ajouter uniquement les préoccupations réellement rencontrées.
+# Statuts possibles : active, deferred, not-applicable.
+concerns: {}
+
+# Les clés sont des rôles stables ; les chemins peuvent être adaptés au projet.
+documents:
+  identity:
+    path: README.md
+    status: active
+  agent-rules:
+    path: AGENTS.md
+    status: active
+  current-state:
+    path: docs/007_Brief_Bootstrap.md
+    status: active
+  vision:
+    path: docs/007_Brief_Bootstrap.md
+    status: active
+  principles:
+    path: docs/007_Brief_Bootstrap.md
+    status: active
+  scope:
+    path: docs/007_Brief_Bootstrap.md
+    status: active
+  requirements:
+    path: docs/007_Brief_Bootstrap.md
+    status: active
+  use-cases:
+    path: docs/007_Brief_Bootstrap.md
+    status: active

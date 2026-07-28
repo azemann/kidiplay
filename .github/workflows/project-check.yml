@@ -1,0 +1,30 @@
+name: Project check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: scripts/requirements-validation.txt
+      - name: Install manifest validators
+        run: python -m pip install --requirement scripts/requirements-validation.txt
+      - name: Validate the source template
+        if: github.repository == 'azemann/project-template'
+        run: ./scripts/check-project.sh operation --template
+      - name: Validate the adopted project at its current level
+        if: github.repository != 'azemann/project-template'
+        run: ./scripts/check-project.sh --current
+      - name: Run validator regression tests
+        run: python scripts/test-validation.py

@@ -1,0 +1,53 @@
+schema_version: 2
+
+project:
+  name: example-v2-compatible
+  kind: command-line-tool
+  version: 1.5.0
+
+components:
+  cli:
+    root: .
+    languages: { primary: rust, secondary: [] }
+    toolchain:
+      compiler_or_interpreter: rustc
+      runtimes: [native]
+      dependency_managers: [cargo]
+      build_tools: [cargo]
+      frameworks: []
+    targets: [linux]
+    commands:
+      install: { status: defined, argv: [cargo, fetch] }
+      test: { status: defined, argv: [cargo, test] }
+      build: { status: defined, argv: [cargo, build, --release] }
+    artifacts: [cli-binary]
+
+artifacts:
+  cli-binary:
+    type: native-binary
+    path: target/release/example
+    produced_by: build-cli
+    retention_days: 30
+
+pipelines:
+  legacy-delivery:
+    orchestrator: github-actions
+    triggers: [version-tag]
+    operations:
+      test-cli:
+        phase: verify
+        uses: test
+        component: cli
+      build-cli:
+        phase: produce
+        uses: build
+        component: cli
+        needs: [test-cli]
+        outputs: [cli-binary]
+
+environments: {}
+secrets: {}
+
+evidence:
+  declared_by: human
+  last_verified: "2026-07-24"

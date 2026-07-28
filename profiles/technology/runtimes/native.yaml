@@ -1,0 +1,6 @@
+id: native
+kind: runtime-model
+name: Native operating-system process
+description: Machine-code artifact executed directly by a supported operating system.
+capabilities: [process, signals, exit-status]
+

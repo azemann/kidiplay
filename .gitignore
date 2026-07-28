@@ -1,0 +1,29 @@
+# Secrets et configuration locale
+.env
+.env.*
+!.env.example
+
+# Dépendances et sorties générées
+node_modules/
+dist/
+build/
+coverage/
+target/
+__pycache__/
+*.py[cod]
+
+# IDE et système
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Journaux
+*.log
+
+# Sauvegardes et données locales
+*.bak
+backups/
+.local-data/
+*.sqlite-shm
+*.sqlite-wal

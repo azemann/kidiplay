@@ -1,0 +1,11 @@
+id: uv
+kind: dependency-manager
+name: uv
+capabilities: [dependency-management, lock, environment-management, script-runner, build, publish]
+manifest_files: [pyproject.toml]
+lock_files: [uv.lock]
+commands:
+  sync_frozen: { argv: [uv, sync, --frozen] }
+  run: { argv: [uv, run] }
+source: https://docs.astral.sh/uv/
+

@@ -1,0 +1,62 @@
+schema_version: 3
+
+project:
+  name: "{{PROJECT_NAME}}"
+  kind: "{{PROJECT_KIND}}"
+  version: "{{CURRENT_VERSION}}"
+
+components:
+  main:
+    root: "."
+    languages:
+      primary: "{{PRIMARY_LANGUAGE}}"
+      secondary: []
+    toolchain:
+      compiler_or_interpreter: "{{COMPILER_OR_INTERPRETER}}"
+      runtimes: []
+      dependency_managers: []
+      build_tools: []
+      frameworks: []
+    targets:
+      - "{{TARGET_PLATFORM}}"
+    commands:
+      install:
+        status: unresolved
+        argv: []
+        reason: "La commande doit être confirmée depuis le projet réel."
+      test:
+        status: unresolved
+        argv: []
+        reason: "La stratégie de test n'est pas encore confirmée."
+      build:
+        status: unresolved
+        argv: []
+        reason: "La commande de build n'est pas encore confirmée."
+    artifacts: []
+
+# Les portées sont indépendantes. Une cible future peut être ajoutée sous
+# distribution.intent sans activer de pipeline, secret ou environnement.
+delivery:
+  scopes:
+    development:
+      status: active
+      execution: manual
+      pipelines: []
+    release:
+      status: deferred
+      reason: "À activer lorsqu'un artefact versionné doit être produit et qualifié."
+    distribution:
+      status: deferred
+      reason: "À activer lorsqu'un canal, un store, un registre ou un environnement réel est choisi."
+    operation:
+      status: deferred
+      reason: "À activer lorsqu'un système installé ou en service doit être maintenu."
+
+artifacts: {}
+pipelines: {}
+environments: {}
+secrets: {}
+
+evidence:
+  declared_by: "human"
+  last_verified: "{{YYYY-MM-DD}}"

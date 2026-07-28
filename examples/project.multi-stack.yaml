@@ -1,0 +1,47 @@
+schema_version: 1
+
+project:
+  name: flux-explorer-linux
+  kind: desktop-application
+  version: 0.1.0
+
+components:
+  frontend:
+    root: .
+    languages:
+      primary: typescript
+      secondary: []
+    toolchain:
+      compiler_or_interpreter: typescript
+      runtimes: [node, browser]
+      dependency_managers: [pnpm]
+      build_tools: [vite]
+      frameworks: [react]
+    targets: [linux-desktop]
+    commands:
+      install: { status: defined, argv: [pnpm, install, --frozen-lockfile] }
+      test: { status: defined, argv: [pnpm, test] }
+      build: { status: defined, argv: [pnpm, build] }
+    artifacts: [dist]
+
+  host:
+    root: src-tauri
+    languages:
+      primary: rust
+      secondary: []
+    toolchain:
+      compiler_or_interpreter: rustc
+      runtimes: [native]
+      dependency_managers: [cargo]
+      build_tools: [cargo]
+      frameworks: [tauri]
+    targets: [linux]
+    commands:
+      install: { status: defined, argv: [cargo, fetch] }
+      test: { status: defined, argv: [cargo, test] }
+      build: { status: defined, argv: [cargo, build, --release] }
+    artifacts: [src-tauri/target/release]
+
+evidence:
+  declared_by: human
+  last_verified: "2026-07-21"

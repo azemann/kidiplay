@@ -1,0 +1,35 @@
+schema_version: 1
+template_version: "1.7.0"
+
+adoption:
+  origin: existing
+  current_level: discovery
+  initialized_at: "2026-07-24"
+
+profiles:
+  active: [software, linux-service]
+
+concerns:
+  user-interface:
+    status: active
+  persistent-data:
+    status: deferred
+    until: development
+    reason: "La persistance observée doit encore être confirmée."
+  sensitive-data:
+    status: not-applicable
+    reason: "Aucune donnée sensible n'est traitée dans le périmètre observé."
+
+documents:
+  identity:
+    path: README.md
+    status: active
+  initial-diagnostic:
+    path: docs/adoption/initial-diagnostic.md
+    status: active
+  current-state:
+    path: docs/adoption/initial-diagnostic.md
+    status: active
+  technology-registry:
+    path: project.yaml
+    status: active
